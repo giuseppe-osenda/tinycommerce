@@ -57,7 +57,6 @@ class AppController extends Controller
         parent::beforeFilter($event);
 
         $session = $this->request->getSession();
-        $cart = $session->read('Cart');
 
         if (!$session->check('Cart')) {
             $session->write('Cart', []);
