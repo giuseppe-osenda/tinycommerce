@@ -60,3 +60,10 @@ form
 {
     width: 100%;
 }
+
+.quantity-form{
+  display: flex;
+  max-width: 30%;
+  margin: 0 auto;
+  gap: 25px;
+}

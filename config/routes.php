@@ -88,6 +88,7 @@ return function (RouteBuilder $routes): void {
         $builder->fallbacks();
     });
 
+    $routes->setExtensions(['json']);
     $routes->prefix('Admin', function (RouteBuilder $routes) {
         // All routes here will be prefixed with `/admin`, and
         // have the `'prefix' => 'Admin'` route element added that

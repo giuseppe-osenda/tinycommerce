@@ -59,7 +59,7 @@ class AppController extends Controller
         $session = $this->request->getSession();
 
         if (!$session->check('Cart')) {
-            $session->write('Cart', []);
+            $session->write('Cart');
         }
 
     }

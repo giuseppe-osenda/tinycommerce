@@ -31,7 +31,6 @@ $description = 'TinyCommerce';
     <?= $this->Html->meta('icon') ?>
 
     <?= $this->Html->css(['normalize.min', 'milligram.min', 'fonts', 'cake', 'application']) ?>
-
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
@@ -45,6 +44,15 @@ $description = 'TinyCommerce';
     </main>
     <footer>
     </footer>
+
+    
+    <?= $this->Html->scriptBlock(sprintf( //aggiungo il token CSRF alla pagina per autenticare le richieste AJAX
+        'var csrfToken = %s;',
+        json_encode($this->request->getAttribute('csrfToken'))
+    )); ?>
+
+    <?= $this->Html->script(['jquery.min.js', 'custom.js']) ?>
+    <?= $this->fetch('scriptBottom') ?>
 </body>
 
 </html>
