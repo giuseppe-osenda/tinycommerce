@@ -64,13 +64,15 @@ return function (RouteBuilder $routes): void {
 
         $builder->connect(
             '/user-info',
-            ['controller' => 'CustomPages', 'action' => 'view', 3]
+            ['controller' => 'Clients', 'action' => 'view']
         );
 
         $builder->connect(
             '/checkout',
             ['controller' => 'CustomPages', 'action' => 'view', 4]
         );
+
+      
         /*
          * Connect catchall routes for all controllers.
          *

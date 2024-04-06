@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Model\Table;
@@ -94,13 +95,23 @@ class ClientsTable extends Table
             ->notEmptyString('tax_code');
 
         $validator
-            ->scalar('newsletter')
+            ->boolean('newsletter')
             ->notEmptyString('newsletter');
 
         $validator
-            ->scalar('privacy')
+            ->boolean('privacy')
+            ->notEmptyString('privacy')
+            ->add('privacy', 'check_privacy', [
+                'rule' => function ($value, $context) {
+                    return $value == 1;
+                },
+                'message' => __d('contacts', 'Accetta il trattamento dei dati')
+            ]);
+
+        $validator
+            ->boolean('invoice')
             ->requirePresence('privacy', 'create')
-            ->notEmptyString('privacy');
+            ->notEmptyString('invoice');
 
         return $validator;
     }

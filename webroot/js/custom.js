@@ -46,26 +46,40 @@ $('.coupon-form').on('submit', function (e) {
     e.preventDefault();
     var form = $(this);
     var url = form.attr('action');
-    var data = form.serialize();
+    var data = form.serialize(); // Serializza i dati del form
     $.post(url, data, function (response) {
         if (response.success) {
 
-            for(var productId in response){
+            for (var productId in response) {
                 if (response.hasOwnProperty(productId) && productId !== 'success' && productId !== 'cartTotal' && productId !== 'message') {
                     $('[data-row-total="' + productId + '"]').text(parseFloat(response[productId].rowTotal).toFixed(2));
                     $('[data-product-price="' + productId + '"]').text(parseFloat(response[productId].price).toFixed(2));
                     $('.coupon-alert').text(response.message);
                 }
-                
-                $('#quantity-'+productId).prop('disabled', true);
+
+                $('#quantity-' + productId).prop('disabled', true);
 
             }
 
             $('[data-cart-total]').text(parseFloat(response.cartTotal.cartTotal).toFixed(2));
 
 
-        }else{
+        } else {
             $('.coupon-alert').text(response.message);
+        }
+    });
+});
+
+$('.client-form').on('submit', function (e) {
+    e.preventDefault();
+    var form = $(this);
+    var url = form.attr('action');
+    var data = form.serialize(); // Serializza i dati del form
+    $.post(url, data, function (response) {
+        if (response.success) {
+            $('.client-alert').text(response.message);
+        } else {
+            $('.client-alert').text(response.message);
         }
     });
 });
