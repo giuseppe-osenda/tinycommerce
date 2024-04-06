@@ -25,8 +25,13 @@ $menu = [
     ],  
     'Prodotti' => [
         'label' => __('Prodotti'),
-        'icon' => 'fas fa-product',
+        'icon' => 'fab fa-product-hunt',
         'uri' => ['controller' => 'Products', 'action' => 'index'],
+    ],  
+    'Coupon' => [
+        'label' => __('Coupon'),
+        'icon' => 'fas fa-gift',
+        'uri' => ['controller' => 'Coupons', 'action' => 'index'],
     ],  
 ];
 

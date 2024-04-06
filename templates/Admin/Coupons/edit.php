@@ -23,10 +23,10 @@
                 <legend><?= __('Edit Coupon') ?></legend>
                 <?php
                     echo $this->Form->control('code');
-                    echo $this->Form->control('active');
                     echo $this->Form->control('min_price');
                     echo $this->Form->control('max_price');
-                    echo $this->Form->control('associated_product_ids');
+                    echo $this->Form->control('discount');
+                    echo $this->Form->control('active');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

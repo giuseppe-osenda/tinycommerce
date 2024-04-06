@@ -3,6 +3,7 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Product $product
  */
+
 ?>
 <div class="row">
     <aside class="column">
@@ -25,6 +26,7 @@
                     echo $this->Form->control('name');
                     echo $this->Form->control('price');
                     echo $this->Form->control('stock_qty');
+                    echo $this->Form->control('coupon_id', ['options' => $coupons, 'empty' => 'seleziona un coupon']);
                     echo $this->Form->control('active');
                 ?>
             </fieldset>

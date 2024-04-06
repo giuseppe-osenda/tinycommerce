@@ -51,11 +51,11 @@ $totalPrice = $this->request->getSession()->read('Cart.total_price');
   <section class="cart-coupon tar">
     <span class="cart-total-label">Inserisci codice coupon:</span>
     <?= $this->Form->control('coupon_code', ['type' => 'text', 'label' => false]) ?>
-    <?php foreach ($cartItems as $cartItem) : ?>
+    <?php /*foreach ($cartItems as $cartItem) : ?>
       <?php if (is_array($cartItem) && !isset($cartItem['total_price'])) : ?>
         <?= $this->Form->hidden('product_ids[]', ['value' => $cartItem['id']]) ?>
       <?php endif; ?>
-    <?php endforeach; ?>
+    <?php endforeach; */?>
     <?= $this->Form->button('Applica coupon') ?>
   </section>
   <?= $this->Form->end() ?>

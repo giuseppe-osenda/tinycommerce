@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Model\Table;
@@ -45,6 +46,11 @@ class ProductsTable extends Table
 
         $this->hasMany('OrderProducts', [
             'foreignKey' => 'product_id',
+        ]);
+
+        $this->belongsTo('Coupons', [
+            'foreignKey' => 'coupon_id',
+            'joinType' => 'INNER',
         ]);
     }
 

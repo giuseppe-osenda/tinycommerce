@@ -12,6 +12,7 @@ use App\Controller\Admin\AppController;
  */
 class ProductsController extends AppController
 {
+   
     /**
      * Index method
      *
@@ -46,6 +47,8 @@ class ProductsController extends AppController
     public function add()
     {
         $product = $this->Products->newEmptyEntity();
+        $coupons = $this->Products->Coupons->find('list')->where(['active' => 1]);
+
         if ($this->request->is('post')) {
             $product = $this->Products->patchEntity($product, $this->request->getData());
             if ($this->Products->save($product)) {
@@ -55,7 +58,8 @@ class ProductsController extends AppController
             }
             $this->Flash->error(__('The product could not be saved. Please, try again.'));
         }
-        $this->set(compact('product'));
+
+        $this->set(compact('product', 'coupons'));
     }
 
     /**
@@ -68,6 +72,8 @@ class ProductsController extends AppController
     public function edit($id = null)
     {
         $product = $this->Products->get($id, contain: []);
+        $coupons = $this->Products->Coupons->find('list')->where(['active' => 1])->toArray();
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $product = $this->Products->patchEntity($product, $this->request->getData());
             if ($this->Products->save($product)) {
@@ -77,7 +83,7 @@ class ProductsController extends AppController
             }
             $this->Flash->error(__('The product could not be saved. Please, try again.'));
         }
-        $this->set(compact('product'));
+        $this->set(compact('product', 'coupons'));
     }
 
     /**

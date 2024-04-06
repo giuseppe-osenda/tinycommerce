@@ -33,5 +33,6 @@ class Product extends Entity
         'stock_qty' => true,
         'active' => true,
         'order_products' => true,
+        'coupon_id' => true,
     ];
 }

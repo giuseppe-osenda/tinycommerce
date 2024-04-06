@@ -40,6 +40,10 @@ class CouponsTable extends Table
         $this->setTable('coupons');
         $this->setDisplayField('code');
         $this->setPrimaryKey('id');
+
+        $this->hasMany('Products', [
+            'foreignKey' => 'coupon_id',
+        ]);
     }
 
     /**
@@ -70,8 +74,8 @@ class CouponsTable extends Table
             ->allowEmptyString('max_price');
 
         $validator
-            ->scalar('associated_product_ids')
-            ->allowEmptyString('associated_product_ids');
+            ->decimal('discount')
+            ->notEmptyString('discount');
 
         return $validator;
     }
