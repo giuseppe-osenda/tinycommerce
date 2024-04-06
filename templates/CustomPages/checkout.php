@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="it">
-  <head>
-    <meta charset="utf-8" />
-    <title></title>
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1" />
-    <link rel="stylesheet" href="/assets/css/application.css" />
-  </head>
-
+  <?php 
+    
+  ?>
   <body>
     <div class="page-container">
       <h3>Checkout</h3>
@@ -82,5 +74,3 @@
         </section>
       </form>
     </div>
-  </body>
-</html>

@@ -77,7 +77,7 @@ $('.client-form').on('submit', function (e) {
     var data = form.serialize(); // Serializza i dati del form
     $.post(url, data, function (response) {
         if (response.success) {
-            $('.client-alert').text(response.message);
+            window.location.href = response.redirectUrl;
         } else {
             $('.client-alert').text(response.message);
         }
