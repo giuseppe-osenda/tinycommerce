@@ -69,4 +69,30 @@ class AppController extends Controller
 
         $this->viewBuilder()->setLayout('Default');
     }
+
+    public function updateProductCoupons()
+    {
+        $session = $this->request->getSession();
+
+        if ($session->check('Cart')) {
+
+            $cart = $session->read('Cart');
+            $total_price = $session->read('Cart.total_price');
+            $has_used_coupon = $session->read('Cart.has_used_coupon');
+
+            unset($cart['total_price']);
+            unset($cart['has_used_coupon']);
+
+            $productsTable = $this->getTableLocator()->get('Products');
+
+            foreach ($cart as $product_id => $val) {
+                $product_coupon_id = $productsTable->getCouponId($product_id);
+                $cart[$product_id]['coupon_id'] = $product_coupon_id;
+            }
+
+            $session->write('Cart', $cart);
+            $session->write('Cart.total_price', $total_price);
+            $session->write('Cart.has_used_coupon', $has_used_coupon);
+        }
+    }
 }

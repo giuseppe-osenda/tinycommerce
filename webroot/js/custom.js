@@ -16,7 +16,7 @@ $(".remove-from-cart").click(function (e) {
     $.get(url, function (response) {
         if (response.success) {
             $(trigger).parent().parent().remove();
-            $('[data-cart-total]').text(response.cartTotal);
+            $('[data-cart-total]').text(parseFloat(response.cartTotal).toFixed(2));
         }
     });
 });
@@ -33,8 +33,8 @@ $(document).ready(function () {
             data: { id: productId, quantity: quantity },
             success: function (response) {
                 if (response.success) {
-                    $('[data-row-total="' + productId + '"]').text(response.rowTotal);
-                    $('[data-cart-total]').text(response.cartTotal);
+                    $('[data-row-total="' + productId + '"]').text(parseFloat(response.rowTotal).toFixed(2));
+                    $('[data-cart-total]').text(parseFloat(response.cartTotal).toFixed(2));
                 }
             }
         });
@@ -42,13 +42,30 @@ $(document).ready(function () {
 });
 
 
-    $('.coupon-form').on('submit', function (e) {
-        e.preventDefault();
-        var form = $(this);
-        var url = form.attr('action');
-        var data = form.serialize();
-        $.post(url, data, function (response) {
-            if (response.success) {
+$('.coupon-form').on('submit', function (e) {
+    e.preventDefault();
+    var form = $(this);
+    var url = form.attr('action');
+    var data = form.serialize();
+    $.post(url, data, function (response) {
+        if (response.success) {
+
+            for(var productId in response){
+                if (response.hasOwnProperty(productId) && productId !== 'success' && productId !== 'cartTotal' && productId !== 'message') {
+                    $('[data-row-total="' + productId + '"]').text(parseFloat(response[productId].rowTotal).toFixed(2));
+                    $('[data-product-price="' + productId + '"]').text(parseFloat(response[productId].price).toFixed(2));
+                    $('.coupon-alert').text(response.message);
+                }
+                
+                $('#quantity-'+productId).prop('disabled', true);
+
             }
-        });
+
+            $('[data-cart-total]').text(parseFloat(response.cartTotal.cartTotal).toFixed(2));
+
+
+        }else{
+            $('.coupon-alert').text(response.message);
+        }
     });
+});

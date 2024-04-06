@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Model\Table;
@@ -93,4 +94,5 @@ class CouponsTable extends Table
 
         return $rules;
     }
+
 }

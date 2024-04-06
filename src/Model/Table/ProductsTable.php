@@ -81,4 +81,11 @@ class ProductsTable extends Table
 
         return $validator;
     }
+
+    public function getCouponId(int $productId): ?int
+    {
+        $product = $this->get($productId);
+
+        return $product->coupon_id;
+    }
 }

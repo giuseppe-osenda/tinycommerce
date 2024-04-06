@@ -14,7 +14,8 @@ class CartController extends AppController
         $cart = $session->read('Cart');
 
         unset($cart['total_price']); //Rimuovo il totale del carrello per calcolarlo nuovamente
-        
+        unset($cart['has_used_coupon']); //Rimuovo il flag che indica se è stato già utilizzato un coupon
+
         if (empty($cart)) { //se il carello è vuoto simulo il popolamento con i primi due prodotti attivi
 
             $products = $this->fetchTable('Products');
@@ -22,15 +23,16 @@ class CartController extends AppController
             $cartProducts = $products->find('all')->where(['Products.active' => 1])->limit(2)->toArray(); //Recupero i primi due prodotti attivi per popolare il carrello
 
             $total_price = 0;
-            
+
             foreach ($cartProducts as $cartProduct) {
-                $product_price = floor((float)$cartProduct['price']);
+                $product_price = number_format((float)$cartProduct['price'], 2, '.', '');
                 $total_price += $product_price;
-                $cart[$cartProduct['id']] = ['id' => $cartProduct['id'], 'quantity' => '1', 'price' => $product_price, 'row_total' => $product_price, 'name' => $cartProduct['name'], 'stock_qty' => $cartProduct['stock_qty']]; //Popolo il carrello con i primi due prodotti attivi e una quantità di default a 1
+                $cart[$cartProduct['id']] = ['id' => $cartProduct['id'], 'quantity' => '1', 'price' => $product_price, 'row_total' => $product_price, 'name' => $cartProduct['name'], 'stock_qty' => $cartProduct['stock_qty'], 'coupon_id' => $cartProduct['coupon_id']]; //Popolo il carrello con i primi due prodotti attivi e una quantità di default a 1
             }
-            
+
             $session->write('Cart', $cart);
             $session->write('Cart.total_price', $total_price);
+            $session->write('Cart.has_used_coupon', false);
         }
 
         $cart = $session->read('Cart');
@@ -51,14 +53,17 @@ class CartController extends AppController
         if (!empty($productId) && !empty($quantity)) {
             $session = $this->request->getSession();
             $cart = $session->read('Cart');
+            $has_used_coupon = $session->read('Cart.has_used_coupon');
 
             if ($cart && array_key_exists($productId, $cart)) {
                 $cart[$productId]['quantity'] = $quantity;
-                $cart[$productId]['row_total'] = $quantity * $cart[$productId]['price']; //Calcolo il totale del prodotto
+                $cart[$productId]['row_total'] = $quantity * number_format((float)$cart[$productId]['price'], 2, '.', '');; //Calcolo il totale del prodotto
                 $cart['total_price'] = array_sum(array_column($cart, 'row_total')); //Calcolo il totale del carrello sommando i totali di tutti i prodotti
 
                 $session->write('Cart', $cart);
-
+                $session->write('Cart.total_price', $cart['total_price']);
+                $session->write('Cart.has_used_coupon', $has_used_coupon);
+                
                 $resp = ['success' => true, 'rowTotal' => $cart[$productId]['row_total'], 'cartTotal' =>  $cart['total_price']];
             } else {
                 $resp = ['error' => $error_message];
@@ -70,7 +75,6 @@ class CartController extends AppController
         $this->response = $this->response->withType('application/json') // Imposta il tipo di risposta su 'application/json'
             ->withStringBody(json_encode($resp)); // Imposta il corpo della risposta
         $this->set('resp', $resp);
-
     }
 
     public function deleteFromCart($id = null)

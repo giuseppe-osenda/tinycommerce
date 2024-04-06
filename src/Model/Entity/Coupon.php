@@ -31,6 +31,6 @@ class Coupon extends Entity
         'active' => true,
         'min_price' => true,
         'max_price' => true,
-        'associated_product_ids' => true,
+        'discount' => true,
     ];
 }

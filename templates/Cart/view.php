@@ -2,6 +2,7 @@
 $total = 0;
 $cartItems = $this->request->getSession()->read('Cart');
 $totalPrice = $this->request->getSession()->read('Cart.total_price');
+$has_used_coupon = $this->request->getSession()->read('Cart.has_used_coupon');
 ?>
 
 <section class="page-container">
@@ -25,11 +26,15 @@ $totalPrice = $this->request->getSession()->read('Cart.total_price');
                 <a href="/cart/deleteFromCart/<?= $cartItem['id'] ?>" class="remove-from-cart" data-product-id="<?= $cartItem['id'] ?>">x</a>
               </td>
               <td class="cart-item"><?= $cartItem['name'] ?></td>
-              <td class="cart-price tar"><?= $cartItem['price'] ?></td>
+              <td class="cart-price tar" data-product-price="<?= $cartItem['id'] ?>"><?= $cartItem['price'] ?></td>
 
               <td class="cart-action cart-quantity tac">
                 <?= $this->Form->hidden('id', ['value' => $cartItem['id']]) ?>
+                <?php if($has_used_coupon):  ?>
+                  <?= $this->Form->select('quantity', range($cartItem['quantity'], $cartItem['quantity']), ['disabled' => 'disabled']) ?>
+                <?php else: ?>
                 <?= $this->Form->select('quantity', array_combine(range(1, $cartItem['stock_qty']), range(1, $cartItem['stock_qty'])), ['id' => 'quantity-' . $cartItem['id'], 'default' => $cartItem['quantity']]) ?>
+                <?php endif; ?>
               </td>
 
               <td class="row-total tar" data-row-total=<?= $cartItem['id'] ?>><?= $cartItem['row_total'] ?></td>
@@ -51,12 +56,8 @@ $totalPrice = $this->request->getSession()->read('Cart.total_price');
   <section class="cart-coupon tar">
     <span class="cart-total-label">Inserisci codice coupon:</span>
     <?= $this->Form->control('coupon_code', ['type' => 'text', 'label' => false]) ?>
-    <?php /*foreach ($cartItems as $cartItem) : ?>
-      <?php if (is_array($cartItem) && !isset($cartItem['total_price'])) : ?>
-        <?= $this->Form->hidden('product_ids[]', ['value' => $cartItem['id']]) ?>
-      <?php endif; ?>
-    <?php endforeach; */?>
     <?= $this->Form->button('Applica coupon') ?>
+    <p class="coupon-alert"></p>
   </section>
   <?= $this->Form->end() ?>
 
