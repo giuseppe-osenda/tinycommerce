@@ -22,7 +22,8 @@ $description = 'TinyCommerce';
 
 <head>
     <?= $this->Html->charset() ?>
-    <meta name="viewport" content="user-scalable=no" content="width=device-width, initial-scale=1">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"> <!-- TODO: qui c'era un errore, content deve essere dichiarato una volta sola !-->
     <title>
         <?= $description ?>
     </title>
@@ -45,12 +46,13 @@ $description = 'TinyCommerce';
     <footer>
     </footer>
 
-    
+
     <?= $this->Html->scriptBlock(sprintf( //aggiungo il token CSRF alla pagina per autenticare le richieste AJAX
         'var csrfToken = %s;',
         json_encode($this->request->getAttribute('csrfToken'))
     )); ?>
 
+    
     <?= $this->Html->script(['jquery.min.js', 'custom.js']) ?>
     <?= $this->fetch('scriptBottom') ?>
 </body>

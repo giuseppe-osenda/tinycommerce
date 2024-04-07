@@ -3,15 +3,11 @@
   use Cake\Datasource\FactoryLocator;
 
   $client_id = $this->request->getQuery('client_id');
-
+  $invoice = $this->request->getQuery('invoice');
+  $order_address = $this->request->getQuery('order_address');
   $client = null;
   if (!empty($client_id)) {
     $client = FactoryLocator::get('Table')->get('Clients')->get($client_id);
-  }
-
-  $order = null;
-  if (!empty($client)) {
-    $order = FactoryLocator::get('Table')->get('Orders')->find()->where(['client_id' => $client_id])->all();
   }
 
   $cartItems = $this->request->getSession()->read('Cart');
@@ -68,7 +64,7 @@
                   <td class="cart-action cart-quantity tac">
                     <p><?= $cartItem['quantity'] ?></p>
                   </td>
-                      
+
                   <td class="row-total tar" data-row-total=<?= $cartItem['id'] ?>><?= $cartItem['row_total'] ?></td>
                 </tr>
               <?php endif; ?>
@@ -83,25 +79,28 @@
           </tfoot>
         </table>
       </section>
-      <form>
-        <section class="payment">
-          <div class="field">
-            <input type="radio" name="payment_type" value="paypal">
-            <label>Paga con Paypal</label><br />
-            <input type="radio" name="payment_type" value="stripe">
-            <label>Paga con Stripe</label>
-          </div>
+      <?= $this->Form->create(null, ['url' => ['controller' => 'Payments', 'action' => 'req']]) ?>
+      <?= $this->Form->hidden('client_id', ['value' => $client_id]) ?>
+      <?= $this->Form->hidden('invoice', ['value' => $invoice]) ?>
+      <?= $this->Form->hidden('order_address', ['value' => $order_address]) ?>
+      <section class="payment">
+        <div class="field">
+          <?= $this->Form->radio('payment_type', [
+            ['value' => 'paypal', 'text' => 'Paga con Paypal'],
+            ['value' => 'stripe', 'text' => 'Paga con Stripe']
+          ]) ?>
+        </div>
 
-          <div class="field field-checkbox">
-            <label>Ho letto e accetto le condizioni generali di vendita</label>
-            <input type="checkbox" name="terms_and_conditions" />
-          </div>
+        <div class="field field-checkbox">
+          <?= $this->Form->checkbox('terms_and_conditions') ?>
+          <label>Ho letto e accetto le condizioni generali di vendita</label>
+        </div>
+      </section>
 
-        </section>
-
-        <section>
-          <a class="button" href="<?= $this->Url->build("/") ?>">Indietro</a>
-          <button>Procedi</button>
-        </section>
+      <section>
+        <?= $this->Html->link('Indietro', '/', ['class' => 'button']) ?>
+        <?= $this->Form->button('Procedi') ?>
+      </section>
+      <?= $this->Form->end() ?>
       </form>
     </div>
