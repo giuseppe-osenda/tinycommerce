@@ -33,8 +33,8 @@ $(document).ready(function () {
             data: { id: productId, quantity: quantity },
             success: function (response) {
                 if (response.success) {
-                    $('[data-row-total="' + productId + '"]').text(parseFloat(response.rowTotal).toFixed(2));
-                    $('[data-cart-total]').text(parseFloat(response.cartTotal).toFixed(2));
+                    $('[data-row-total="' + productId + '"]').text((parseFloat(response.rowTotal).toFixed(2))+'€');
+                    $('[data-cart-total]').text((parseFloat(response.cartTotal).toFixed(2)+'€'));
                 }
             }
         });

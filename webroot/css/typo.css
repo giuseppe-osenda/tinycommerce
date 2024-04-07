@@ -1,0 +1,49 @@
+body {
+    font-size: 15px;
+    font-family: "Poppins", sans-serif;
+    color: #000;
+}
+
+th{
+    font-weight: 600;
+}
+
+.paragraph {
+    font-size: clamp(15px, 20vw * var(--px2vw), 30px);
+}
+
+.title{
+    font-size: clamp(13px, 17vw * var(--px2vw), 25px);
+}
+
+.tiny-title{
+    font-size: clamp(12px, 15vw * var(--px2vw), 20px);
+}
+
+.semibold{
+    font-weight: 500;
+
+}
+.bold{
+    font-weight: 600;
+}
+
+section.user-data{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.checkbox{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+input[type="checkbox"]{
+    margin: 0;
+}
+
+label.form-check-label{
+    margin: 0;
+}

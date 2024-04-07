@@ -1,69 +1,100 @@
-html,
-body {
-  font-size: 14px;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 .page-container {
-  width: 70%;
-  margin: 100px auto 0;
+    width: 70%;
+    margin: 100px auto 0;
 }
 
 table {
-  border-collapse: collapse;
+    border-collapse: collapse;
 }
 
 table tr td,
 table thead th,
 table tfoot td {
-  border: 1px solid #bbb;
-  padding: 10px;
+    border: 1px solid #bbb;
+    padding: 10px !important;
 }
 
 table.cart-items {
-  width: 100%;
+    width: 100%;
 }
 
 .tac {
-  text-align: center;
+    text-align: center;
 }
 
 .tar {
-  text-align: right;
+    text-align: right;
 }
 
 td.cart-action span {
-  cursor: pointer;
-  padding: 0 10px;
+    cursor: pointer;
+    padding: 0 10px;
 }
 
 section {
-  padding: 30px 0;
-  border-top: 1px solid #f0f0f0;
+    padding: 30px 0;
+    border-top: 1px solid #f0f0f0;
 }
 
 input,
 select {
-  padding: 5px 10px;
+    padding: 5px 10px;
 }
 
 button {
-  padding: 5px 10px;
-  cursor: pointer;
+    padding: 5px 10px;
+    cursor: pointer;
 }
 
 .field {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
-form
-{
+form {
     width: 100%;
 }
 
-.quantity-form{
-  display: flex;
-  max-width: 30%;
-  margin: 0 auto;
-  gap: 25px;
+.quantity-form {
+    display: flex;
+    max-width: 30%;
+    margin: 0 auto;
+    gap: 25px;
+}
+
+.cart-coupon {
+    max-width: 30%;
+    margin-left: auto;
+}
+
+.btn,
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: max(5px, 10vw * var(--px2vw)) max(10px, 20vw * var(--px2vw));
+    margin: 0;
+    border: none;
+    transition: background-color 0.1s ease-in-out;
+    width: fit-content;
+}
+
+.btn.left{
+    margin-right: auto;
+}
+
+.btn.right{
+    margin-left: auto;
+}
+
+.btn.positive:hover{
+    background-color: var(--green);
+    border: none;
+}
+
+.alert{
+  color: #625D5D;
+}
+
+button:focus{
+  background-color: var(--red);
 }
