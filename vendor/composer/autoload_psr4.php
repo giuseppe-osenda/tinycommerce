@@ -22,6 +22,7 @@ return array(
     'Symfony\\Component\\Filesystem\\' => array($vendorDir . '/symfony/filesystem'),
     'Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
     'Symfony\\Component\\Config\\' => array($vendorDir . '/symfony/config'),
+    'Stripe\\' => array($vendorDir . '/stripe/stripe-php/lib'),
     'SlevomatCodingStandard\\' => array($vendorDir . '/slevomat/coding-standard/SlevomatCodingStandard'),
     'Seld\\Signal\\' => array($vendorDir . '/seld/signal-handler/src'),
     'Seld\\PharUtils\\' => array($vendorDir . '/seld/phar-utils/src'),
