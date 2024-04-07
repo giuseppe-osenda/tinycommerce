@@ -57,6 +57,7 @@ class ComposerStaticInitf25a12117b9a92ab3357eb567d876b68
             'Symfony\\Component\\Filesystem\\' => 29,
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Component\\Config\\' => 25,
+            'Stripe\\' => 7,
             'SlevomatCodingStandard\\' => 23,
             'Seld\\Signal\\' => 12,
             'Seld\\PharUtils\\' => 15,
@@ -198,6 +199,10 @@ class ComposerStaticInitf25a12117b9a92ab3357eb567d876b68
         'Symfony\\Component\\Config\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/config',
+        ),
+        'Stripe\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/stripe/stripe-php/lib',
         ),
         'SlevomatCodingStandard\\' => 
         array (
