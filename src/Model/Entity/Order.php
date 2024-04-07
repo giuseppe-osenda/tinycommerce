@@ -35,5 +35,7 @@ class Order extends Entity
         'created' => true,
         'client' => true,
         'order_products' => true,
+        'invoice' => true,
+        'order_address' => true
     ];
 }

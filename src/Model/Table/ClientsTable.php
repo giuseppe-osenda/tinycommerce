@@ -91,8 +91,7 @@ class ClientsTable extends Table
         $validator
             ->scalar('tax_code')
             ->maxLength('tax_code', 16)
-            ->requirePresence('tax_code', 'create')
-            ->notEmptyString('tax_code');
+            ->allowEmptyString('tax_code');
 
         $validator
             ->boolean('newsletter')
@@ -108,25 +107,8 @@ class ClientsTable extends Table
                 'message' => __d('contacts', 'Accetta il trattamento dei dati')
             ]);
 
-        $validator
-            ->boolean('invoice')
-            ->requirePresence('privacy', 'create')
-            ->notEmptyString('invoice');
-
         return $validator;
     }
 
-    /**
-     * Returns a rules checker object that will be used for validating
-     * application integrity.
-     *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
-     */
-    public function buildRules(RulesChecker $rules): RulesChecker
-    {
-        $rules->add($rules->isUnique(['email', 'tax_code']), ['errorField' => 'email']);
-
-        return $rules;
-    }
+  
 }

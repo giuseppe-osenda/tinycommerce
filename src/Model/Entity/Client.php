@@ -42,6 +42,6 @@ class Client extends Entity
         'tax_code' => true,
         'newsletter' => true,
         'privacy' => true,
-        'invoice' => true
+        'order' => true,
     ];
 }

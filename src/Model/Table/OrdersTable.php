@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Model\Table;
@@ -77,6 +78,17 @@ class OrdersTable extends Table
         $validator
             ->scalar('complete')
             ->notEmptyString('complete');
+
+        $validator
+            ->boolean('invoice')
+            ->requirePresence('invoice', 'create')
+            ->notEmptyString('invoice');
+
+        $validator
+            ->scalar('order_address')
+            ->requirePresence('order_address', 'create')
+            ->notEmptyString('order_address');
+
 
         return $validator;
     }
