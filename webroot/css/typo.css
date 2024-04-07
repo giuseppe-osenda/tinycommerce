@@ -8,11 +8,11 @@ th{
     font-weight: 600;
 }
 
-.paragraph {
+.title {
     font-size: clamp(15px, 20vw * var(--px2vw), 30px);
 }
 
-.title{
+.paragraph{
     font-size: clamp(13px, 17vw * var(--px2vw), 25px);
 }
 
@@ -20,6 +20,9 @@ th{
     font-size: clamp(12px, 15vw * var(--px2vw), 20px);
 }
 
+.big-title{
+    font-size: clamp(25px, 35vw * var(--px2vw), 35px);
+}
 .semibold{
     font-weight: 500;
 
@@ -28,22 +31,3 @@ th{
     font-weight: 600;
 }
 
-section.user-data{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-.checkbox{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-input[type="checkbox"]{
-    margin: 0;
-}
-
-label.form-check-label{
-    margin: 0;
-}

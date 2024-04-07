@@ -33,20 +33,35 @@ class CouponsController extends AppController
 
             if (!empty($coupon)) {
                 $min_price = $coupon->min_price <= $cart['total_price'];
-                $max_price = $coupon->max_price >= $cart['total_price'];
+                if ($coupon->max_price != null) {
+                    $max_price = $coupon->max_price >= $cart['total_price'];
+                } else {
+                    $max_price = true;
+                }
             }
 
             if (!empty($coupon) && $min_price && $max_price && !$cart['has_used_coupon']) {
 
                 unset($cart['total_price']); //Rimuovo il totale del carrello per calcolarlo nuovamente
                 unset($cart['has_used_coupon']); //Rimuovo il flag che indica se è stato già utilizzato un coupon
+                $at_least_one_product = false;
 
                 foreach ($cart as $product_id => $val) {
                     if ($cart[$product_id]['coupon_id'] == $coupon->id) {
+                        $at_least_one_product = true;
                         $cart[$product_id]['price'] -= $cart[$product_id]['price'] * $coupon->discount / 100;
                         $cart[$product_id]['row_total'] = $cart[$product_id]['price'] * $cart[$product_id]['quantity'];
                         $resp[$product_id] = ['rowTotal' => $cart[$product_id]['row_total'], 'price' => $cart[$product_id]['price']]; //Aggiorno il totale del prodotto con lo sconto applicato da passare nella risposta
                     }
+                }
+
+                if(!$at_least_one_product){
+                    $error = "Il coupon inserito non è valido per i prodotti nel carrello";
+                    $resp['message'] = $error;
+                    $this->response = $this->response->withType('application/json') // Imposta il tipo di risposta su 'application/json'
+                        ->withStringBody(json_encode($resp)); // Imposta il corpo della risposta
+                    $this->set('resp', $resp);
+                    return;
                 }
 
                 $cart['total_price'] = array_sum(array_column($cart, 'row_total')); //Calcolo il totale del carrello sommando i totali di tutti i prodotti
@@ -69,7 +84,7 @@ class CouponsController extends AppController
             } else if ($cart['has_used_coupon']) {
                 $error = "Hai già utilizzato un coupon";
                 $resp['message'] = $error;
-            } else if(empty($coupon)){
+            } else if (empty($coupon)) {
                 $error = "Il coupon inserito non è valido";
                 $resp['message'] = $error;
             } else {

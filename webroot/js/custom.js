@@ -57,7 +57,9 @@ $('.coupon-form').on('submit', function (e) {
                     $('.coupon-alert').text(response.message);
                 }
 
-                $('#quantity-' + productId).prop('disabled', true);
+                $('.select-product-quantity').each(function() {
+                    $(this).prop('disabled', true);
+                });
 
             }
 

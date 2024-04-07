@@ -1,7 +1,3 @@
-<?php //dd($paymentIntent) 
-?>
-
-<h1>Accept a payment</h1>
 
 <form action="" id="payment-form">
     <div id="payment-element"> </div>

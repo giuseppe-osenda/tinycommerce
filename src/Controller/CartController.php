@@ -20,7 +20,7 @@ class CartController extends AppController
 
             $products = $this->fetchTable('Products');
 
-            $cartProducts = $products->find('all')->where(['Products.active' => 1])->limit(2)->toArray(); //Recupero i primi due prodotti attivi per popolare il carrello
+            $cartProducts = $products->find('all')->where(['Products.active' => 1])->toArray(); //Recupero i primi due prodotti attivi per popolare il carrello
 
             $total_price = 0;
 

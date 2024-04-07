@@ -18,35 +18,35 @@
 
   <body>
     <div class="page-container">
-      <h3>Checkout</h3>
+      <h3 class="big-title bold">Checkout</h3>
       <section class="user-info">
-        <h4>Riepilogo dati personali</h4>
-        <div>
-          <p><?= $client->name ?></p>
-          <p><?= $client->email ?></p>
-          <p><?= $client->country ?></p>
+        <h4 class="title bold">Riepilogo dati personali</h4>
+        <div class="user-info-resume">
+          <p class="paragraph"><?= $client->name . " " . $client->surname ?></p>
+          <p class="paragraph"><?= $client->email ?></p>
+          <p class="paragraph"><?= $client->country ?></p>
           <?php if ($client->newsletter) : ?>
-            <p>Desidero iscrivermi alla newsletter</p>
+            <p class="paragraph">Desidero iscrivermi alla newsletter</p>
           <?php else : ?>
-            <p>Non desidero iscrivermi alla newsletter</p>
+            <p class="paragraph">Non desidero iscrivermi alla newsletter</p>
           <?php endif; ?>
           <?php if ($client->invoice) : ?>
-            <p>Richiedo fattura</p>
+            <p class="paragraph">Richiedo fattura</p>
           <?php else : ?>
-            <p>Non richiedo fattura</p>
+            <p class="paragraph">Non richiedo fattura</p>
           <?php endif; ?>
         </div>
       </section>
 
       <section class="cart-items">
-        <h4>Riepilogo carrello</h4>
+        <h4 class="big-title bold">Riepilogo carrello</h4>
         <table class="cart-items">
           <thead>
             <tr>
-              <th>Prodotto</th>
-              <th>Prezzo</th>
-              <th>Quantità</th>
-              <th>Totale</th>
+              <th class="tiny-title">Prodotto</th>
+              <th class="tiny-title">Prezzo</th>
+              <th class="tiny-title">Quantità</th>
+              <th class="tiny-title">Totale</th>
             </tr>
           </thead>
           <tbody>
@@ -58,14 +58,14 @@
                     <a href="/cart/deleteFromCart/<?= $cartItem['id'] ?>" class="remove-from-cart" data-product-id="<?= $cartItem['id'] ?>">x</a>
                   </td>
                   */ ?>
-                  <td class="cart-item"><?= $cartItem['name'] ?></td>
-                  <td class="cart-price tar" data-product-price="<?= $cartItem['id'] ?>"><?= $cartItem['price'] ?></td>
+                  <td class="cart-item paragraph"><?= $cartItem['name'] ?></td>
+                  <td class="cart-price tar paragraph" data-product-price="<?= $cartItem['id'] ?>"><?= $cartItem['price'] . '€' ?></td>
 
                   <td class="cart-action cart-quantity tac">
-                    <p><?= $cartItem['quantity'] ?></p>
+                    <p paragraph><?= $cartItem['quantity'] ?></p>
                   </td>
 
-                  <td class="row-total tar" data-row-total=<?= $cartItem['id'] ?>><?= $cartItem['row_total'] ?></td>
+                  <td class="row-total tar paragraph" data-row-total=<?= $cartItem['id'] ?>><?= $cartItem['row_total'] . '€' ?></td>
                 </tr>
               <?php endif; ?>
             <?php endforeach; ?>
@@ -74,30 +74,30 @@
           <tfoot>
             <tr>
               <td colspan="3">&nbsp;</td>
-              <td class="cart-total tar" data-cart-total><?= $totalPrice ?></td>
+              <td class="cart-total tar paragraph" data-cart-total><?= $totalPrice . '€' ?></td>
             </tr>
           </tfoot>
         </table>
       </section>
+
       <?= $this->Form->create(null, ['url' => ['controller' => 'Payments', 'action' => 'req']]) ?>
+
       <?= $this->Form->hidden('client_id', ['value' => $client_id]) ?>
       <?= $this->Form->hidden('invoice', ['value' => $invoice]) ?>
       <?= $this->Form->hidden('order_address', ['value' => $order_address]) ?>
+
       <section class="payment">
-        <div class="field">
-          <?= $this->Form->radio('payment_type', [
-            ['value' => 'paypal', 'text' => 'Paga con Paypal'],
-            ['value' => 'stripe', 'text' => 'Paga con Stripe']
-          ]) ?>
-        </div>
+        <?= $this->Form->radio('payment_type', [
+          ['value' => 'stripe', 'text' => 'Paga con Stripe']
+        ]) ?>
 
         <div class="field field-checkbox">
           <?= $this->Form->checkbox('terms_and_conditions') ?>
-          <label>Ho letto e accetto le condizioni generali di vendita</label>
+          <label class="form-check-label">Ho letto e accetto le condizioni generali di vendita</label>
         </div>
       </section>
 
-      <section>
+      <section class="form-actions">
         <?= $this->Html->link('Indietro', '/', ['class' => 'button']) ?>
         <?= $this->Form->button('Procedi') ?>
       </section>
