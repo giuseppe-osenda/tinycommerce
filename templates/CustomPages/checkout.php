@@ -93,7 +93,7 @@
 
         <div class="field field-checkbox">
           <?= $this->Form->checkbox('terms_and_conditions') ?>
-          <label class="form-check-label">Ho letto e accetto le condizioni generali di vendita</label>
+          <label class="form-check-label"><a href="<?= $this->Url->build('/terms-and-conditions') ?>">Ho letto e accetto le condizioni generali di vendita</a></label>
         </div>
       </section>
 

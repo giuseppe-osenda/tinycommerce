@@ -72,7 +72,11 @@ return function (RouteBuilder $routes): void {
             ['controller' => 'CustomPages', 'action' => 'view', 4]
         );
 
-      
+        
+        $builder->connect(
+            '/terms-and-conditions',
+            ['controller' => 'CustomPages', 'action' => 'view', 5]
+        );
         /*
          * Connect catchall routes for all controllers.
          *
