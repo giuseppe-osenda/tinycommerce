@@ -11,7 +11,8 @@ CREATE TABLE `coupons` (
 
 INSERT INTO `coupons` (`id`, `code`, `active`, `min_price`, `max_price`, `discount`) VALUES
 (2, 'BENVENUTO1', 1, 10.00, 100.00, 20.00),
-(4, 'Bentornato', 1, 50.00, NULL, 50.00);
+(4, 'Bentornato', 1, 50.00, NULL, 50.00),
+(5, 'nonvalid', 0, 50.00, 150.00, 15.00);
 
 CREATE TABLE `products` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
