@@ -69,11 +69,13 @@ class CouponsController extends AppController
                 $session->write('Cart', $cart);
                 $session->write('Cart.total_price', $cart['total_price']);
                 $session->write('Cart.has_used_coupon', true);
+                $session->write('Cart.coupon_code', $coupon['code']);
 
                 $resp['success'] = true;
                 $resp['message'] = "Coupon applicato con successo!";
                 $resp['cartTotal'] = ['cartTotal' => $cart['total_price']]; //Aggiorno il totale del carrello con lo sconto applicato da passare nella risposta
-
+                $resp['couponCode'] = $coupon['code'];
+                
                 $cart['has_used_coupon'] = true;
             } else if (!empty($coupon) && !$min_price) {
                 $error = "Il coupon deve essere utilizzato per un importo minimo di " . $coupon->min_price . "€";

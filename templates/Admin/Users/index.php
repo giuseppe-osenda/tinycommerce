@@ -9,7 +9,7 @@ $this->layout = 'CakeLte.default';
     <?= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Users') ?></h3>
     <div class="table-responsive">
-        <table>
+        <table class="table m-0">
             <thead>
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>

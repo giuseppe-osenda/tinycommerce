@@ -50,24 +50,25 @@ class PaymentsController extends AppController
             //salvo l'ordine e i prodotti dell'ordine nella tabella order_products
             $order_products_table = $this->fetchTable('OrderProducts');
             foreach ($cart as $id => $product) {
-                if ($id != 'total_price' && $id != 'has_used_coupon') {
-                    $order_products = $order_products_table->newEntity(['order_id' => $order->id, 'product_id' => $id, 'qty' => $product['quantity']]);
-                    if ($order_products_table->save($order_products)) {
-                        $resp['success'] = true;
-                        $resp['message'] = 'OrderProducts salvati correttamente';
-                    } else {
-                        $resp['success'] = false;
-                        $resp['message'] = "Errore nel salvataggio degli OrderProducts";
+                if (is_array($product)) { //se l'elemento è un array allora è un prodotto
+                    if ($id != 'total_price' && $id != 'has_used_coupon') {
+                        $order_products = $order_products_table->newEntity(['order_id' => $order->id, 'product_id' => $id, 'qty' => $product['quantity']]);
+                        if ($order_products_table->save($order_products)) {
+                            $resp['success'] = true;
+                            $resp['message'] = 'OrderProducts salvati correttamente';
+                        } else {
+                            $resp['success'] = false;
+                            $resp['message'] = "Errore nel salvataggio degli OrderProducts";
+                        }
                     }
                 }
             }
-            
         } else {
             $resp['success'] = false;
             $resp['message'] = "Errore nel salvataggio dei dati dell'ordine";
         }
 
-        if($resp['success']){
+        if ($resp['success']) {
             $this->request->getSession()->delete('Cart');
             $this->request->getSession()->delete('Cart.total_price');
             $this->request->getSession()->delete('Cart.has_used_coupon');

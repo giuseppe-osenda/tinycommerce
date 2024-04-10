@@ -8,7 +8,7 @@
     <?= $this->Html->link(__('New Product'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Products') ?></h3>
     <div class="table-responsive">
-        <table>
+        <table class="table m-0">
             <thead>
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>

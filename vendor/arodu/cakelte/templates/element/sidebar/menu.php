@@ -4,20 +4,20 @@ $menu = [
         'label' => __('MAIN'),
         'type' => $this->MenuLte::ITEM_TYPE_HEADER, // or 'header'
     ],
-    'startPages' => [
-        'label' => __('Start Pages'),
-        'icon' => 'fas fa-tachometer-alt',
-        'dropdown' => [
-            'activePage' => [
-                'label' => __('Home'),
-                'uri' => ['controller' => 'Pages', 'action' => 'display', 'home', 'plugin' => false, 'prefix' => false],
-            ],
-            // 'inactivePage' => [
-            //     'label' => __('Inactive Page'),
-            //     'uri' => '#',
-            // ],
-        ],
-    ],
+    // 'startPages' => [
+    //     'label' => __('Start Pages'),
+    //     'icon' => 'fas fa-tachometer-alt',
+    //     'dropdown' => [
+    //         'activePage' => [
+    //             'label' => __('Home'),
+    //             'uri' => ['controller' => 'Pages', 'action' => 'display', 'home', 'plugin' => false, 'prefix' => false],
+    //         ],
+    //         // 'inactivePage' => [
+    //         //     'label' => __('Inactive Page'),
+    //         //     'uri' => '#',
+    //         // ],
+    //     ],
+    // ],
     'customPages' => [
         'label' => __('Custom Pages'),
         'icon' => 'fas fa-book',

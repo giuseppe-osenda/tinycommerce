@@ -15,7 +15,8 @@ class CartController extends AppController
 
         unset($cart['total_price']); //Rimuovo il totale del carrello per calcolarlo nuovamente
         unset($cart['has_used_coupon']); //Rimuovo il flag che indica se è stato già utilizzato un coupon
-
+        unset($cart['coupon_code']); //Rimuovo il codice coupon
+        
         if (empty($cart)) { //se il carello è vuoto simulo il popolamento con i primi due prodotti attivi
 
             $products = $this->fetchTable('Products');
@@ -23,21 +24,28 @@ class CartController extends AppController
             $cartProducts = $products->find('all')->where(['Products.active' => 1])->toArray(); //Recupero i primi due prodotti attivi per popolare il carrello
 
             $total_price = 0;
+            
+            $product_prices = [];
 
             foreach ($cartProducts as $cartProduct) {
                 $product_price = number_format((float)$cartProduct['price'], 2, '.', '');
                 $total_price += $product_price;
                 $cart[$cartProduct['id']] = ['id' => $cartProduct['id'], 'quantity' => '1', 'price' => $product_price, 'row_total' => $product_price, 'name' => $cartProduct['name'], 'stock_qty' => $cartProduct['stock_qty'], 'coupon_id' => $cartProduct['coupon_id']]; //Popolo il carrello con i primi due prodotti attivi e una quantità di default a 1
+                $product_prices[$cartProduct['id']] = $product_price;
             }
-
+            
             $session->write('Cart', $cart);
             $session->write('Cart.total_price', $total_price);
             $session->write('Cart.has_used_coupon', false);
+            $session->write('original_prices', $product_prices); //Salvo i prezzi originali dei prodotti
+            $session->write('original_total', $total_price); //Salvo il totale originale del carrello
         }
 
         $cart = $session->read('Cart');
 
+     
         $this->set('cartItems', $cart);
+
     }
 
     public function updateQuantity()

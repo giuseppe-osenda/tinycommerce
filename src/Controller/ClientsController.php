@@ -47,7 +47,7 @@ class ClientsController extends AppController
                     $resp['success'] = true;
                 } else {
                     $resp['success'] = false;
-                    $resp['message'] = 'Errore nel salvataggio dei dati';
+                    $resp['message'] = 'Controlla di aver inserito tutti i campi obbligatori';
                 }
 
                 if ($resp['success']) {
@@ -60,7 +60,7 @@ class ClientsController extends AppController
                     $resp['success'] = true;
                 } else {
                     $resp['success'] = false;
-                    $resp['message'] = "Errore nell'aggiornamento dei dati del cliente cliente di ritorno";
+                    $resp['message'] = "Controlla di aver inserito tutti i campi obbligatori";
                 }
 
                 if ($resp['success']) {

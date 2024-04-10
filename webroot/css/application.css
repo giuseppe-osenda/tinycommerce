@@ -1,7 +1,8 @@
 .page-container {
-    width: 70%;
+    width: clamp(500px, 90%, 1440px);
     margin: 100px auto 0;
 }
+
 
 table {
     border-collapse: collapse;
@@ -12,14 +13,21 @@ table thead th,
 table tfoot td {
     border: 1px solid #bbb;
     padding: 10px !important;
+    min-width: 100px;
 }
 
-table.cart-items {
-    width: 100%;
+
+section.cart-items {
+    overflow-x: auto;
 }
 
 .tac {
     text-align: center;
+}
+
+.tac svg {
+    width: 20px;
+    height: 20px;
 }
 
 .tar {
@@ -121,6 +129,7 @@ section.user-data {
     font-size: clamp(12px, 15vw * var(--px2vw), 20px);
     font-weight: 600;
 }
+
 .user-data-fields {
     justify-self: flex-start;
     width: 100%;
@@ -141,6 +150,9 @@ section.user-data {
     margin-top: 10px;
 }
 
+.client-alert{
+    grid-column-start: 2;
+}
 .checkbox {
     display: flex;
     align-items: center;
@@ -180,11 +192,8 @@ label.form-check-label {
     position: relative;
 }
 .user-info-resume p:before {
-    content: "";
+    content: "•";
     position: absolute;
-    width: 5px;
-    height: 1px;
-    background-color: var(--blue);
     left: -10px;
     top: 50%;
     transform: translateY(-50%);
@@ -193,25 +202,61 @@ label.form-check-label {
 .payment {
     display: flex;
     justify-content: flex-start;
+    flex-wrap: wrap;
     gap: 20px;
 }
 
 .form-check {
     display: flex;
     gap: 10px;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+}
+
+.payment-type-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .field-checkbox {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    flex-direction: column;
+    justify-content: flex-start;
     margin: 0;
+}
+
+.privacy-checkbox-container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
 }
 
 #payment-form {
     width: 30%;
     margin: 0 auto;
     max-width: 576px;
+}
+
+[class*="error"] {
+    color: #ff0f0f;
+}
+
+[data-del-price=""] {
+    display: none;
+}
+
+[data-del-total=""] {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .page-container {
+        width: 90%;
+    }
+    section.user-data {
+        grid-template-columns:  1fr;
+        gap: 20px;
+    }
+
 }

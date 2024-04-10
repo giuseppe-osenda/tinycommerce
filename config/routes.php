@@ -69,7 +69,7 @@ return function (RouteBuilder $routes): void {
 
         $builder->connect(
             '/checkout',
-            ['controller' => 'CustomPages', 'action' => 'view', 4]
+            ['controller' => 'Checkout', 'action' => 'view']
         );
 
         

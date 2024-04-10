@@ -33,8 +33,10 @@ $(document).ready(function () {
             data: { id: productId, quantity: quantity },
             success: function (response) {
                 if (response.success) {
-                    $('[data-row-total="' + productId + '"]').text((parseFloat(response.rowTotal).toFixed(2))+'€');
-                    $('[data-cart-total]').text((parseFloat(response.cartTotal).toFixed(2)+'€'));
+                    $('[data-row-total="' + productId + '"]').text((parseFloat(response.rowTotal).toFixed(2)) + '€');
+                    $('[data-cart-total] > [data-original-total]').text((parseFloat(response.cartTotal).toFixed(2) + '€'));
+                    $('[data-cart-total] > [data-del-total]').text((parseFloat(response.cartTotal).toFixed(2) + '€'));
+                    
                 }
             }
         });
@@ -51,21 +53,23 @@ $('.coupon-form').on('submit', function (e) {
         if (response.success) {
 
             for (var productId in response) {
-                if (response.hasOwnProperty(productId) && productId !== 'success' && productId !== 'cartTotal' && productId !== 'message') {
+                if (response.hasOwnProperty(productId) && productId !== 'success' && productId !== 'cartTotal' && productId !== 'message' && productId !== 'couponCode') {
                     $('[data-row-total="' + productId + '"]').text(parseFloat(response[productId].rowTotal).toFixed(2));
-                    $('[data-product-price="' + productId + '"]').text(parseFloat(response[productId].price).toFixed(2));
+                    $('[data-product-price="' + productId + '"] > [data-original-price]').text(parseFloat(response[productId].price).toFixed(2));
+                    $('[data-product-price="' + productId + '"] > [data-del-price]').attr('data-del-price', 'visible');
                     $('.coupon-alert').text(response.message);
                 }
 
-                $('.select-product-quantity').each(function() {
+                $('.select-product-quantity').each(function () {
                     $(this).prop('disabled', true);
                 });
 
             }
 
-            $('[data-cart-total]').text(parseFloat(response.cartTotal.cartTotal).toFixed(2));
+            $('[data-cart-total] > [data-original-total]').text(parseFloat(response.cartTotal.cartTotal).toFixed(2));
+            $('[data-cart-total] > [data-del-total]').attr('data-del-total', 'visible');
 
-
+            $('[data-coupon-code]').text(response.couponCode);
         } else {
             $('.coupon-alert').text(response.message);
         }
@@ -84,4 +88,26 @@ $('.client-form').on('submit', function (e) {
             $('.client-alert').text(response.message);
         }
     });
+});
+
+const payButton = $("[data-pay-button]");
+const checkPrivacy = $("[data-privacy-check]");
+const privacyError = $("[data-privacy-error]");
+const checkStripe = $("[data-stripe-payment]");
+const paymentError = $("[data-payment-error]");
+
+payButton.on('click', function (e) {
+    if (!(checkPrivacy.prop('checked'))) {
+        e.preventDefault();
+        privacyError.text("Accetta la privacy");
+    } else {
+        privacyError.text("");
+    }
+
+    if (!(checkStripe.prop('checked'))) {
+        e.preventDefault();
+        paymentError.text("Seleziona almeno un metodo di pagamento");
+    } else {
+        privacyError.text("");
+    }
 });

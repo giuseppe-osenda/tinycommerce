@@ -5,7 +5,7 @@
  */
 ?>
 <div class="row">
-    <aside class="column">
+    <aside class="col-auto d-flex flex-column">
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
             <?= $this->Html->link(__('Edit Custom Page'), ['action' => 'edit', $customPage->id], ['class' => 'side-nav-item']) ?>
@@ -14,7 +14,7 @@
             <?= $this->Html->link(__('New Custom Page'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
-    <div class="column column-80">
+    <div class="col">
         <div class="customPages view content">
             <h3><?= h($customPage->title) ?></h3>
             <table>

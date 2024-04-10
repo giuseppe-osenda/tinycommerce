@@ -14,7 +14,7 @@
                 <?= $this->Form->control('email', ['placeholder' => 'Email', 'label' => 'Email*']) ?>
                 <?= $this->Form->control('address', ['placeholder' => 'Indirizzo', 'label' => 'Indirizzo*']) ?>
                 <?= $this->Form->label('Nazione*'); ?>
-                <?= $this->Form->select('country', ['' => 'Nazione*', 'Argentina' => 'Argentina', 'Italy' => 'Italy', 'USA' => 'USA'], ['placeholder' => 'Nazione']) ?>
+                <?= $this->Form->select('country', ['Argentina' => 'Argentina', 'Italy' => 'Italy', 'USA' => 'USA'], ['placeholder' => 'Nazione', 'empty' => 'Seleziona']) ?>
 
             </div>
         </section>
@@ -32,6 +32,8 @@
                     <?= $this->Form->control('privacy', ['type' => 'checkbox', 'label' => "Ho letto e accetto l'informativa sulla privacy*"]); ?>
                 </div>
             </div>
+            <p class="client-alert error"></p>
+
         </section>
 
         <section class="form-actions right">
@@ -40,5 +42,4 @@
         </section>
 
         <?= $this->Form->end() ?>
-        <p class="client-alert"></p>
     </div>

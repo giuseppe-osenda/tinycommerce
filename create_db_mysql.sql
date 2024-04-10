@@ -9,6 +9,10 @@ CREATE TABLE `coupons` (
   UNIQUE KEY `IX_UniqueCode` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+INSERT INTO `coupons` (`id`, `code`, `active`, `min_price`, `max_price`, `discount`) VALUES
+(2, 'BENVENUTO1', 1, 10.00, 100.00, 20.00),
+(4, 'Bentornato', 1, 50.00, NULL, 50.00);
+
 CREATE TABLE `products` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `coupon_id` int unsigned DEFAULT NULL,
@@ -16,10 +20,16 @@ CREATE TABLE `products` (
   `price` decimal(18,2) NOT NULL,
   `stock_qty` int NOT NULL DEFAULT '0',
   `active` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
   KEY `FK_CouponId` (`coupon_id`),
-  CONSTRAINT `FK_CouponId` FOREIGN KEY (`coupon_id`) REFERENCES `coupon` (`id`)
+  CONSTRAINT `FK_CouponId` FOREIGN KEY (`coupon_id`) REFERENCES `coupons` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+INSERT INTO `products` (`id`, `name`, `price`, `stock_qty`, `active`, `coupon_id`) VALUES
+(1, 'Prodotto 1', 12.22, 10, 1, 4),
+(2, 'Prodotto 2', 4.00, 3, 1, 2),
+(5, 'Prodotto 3', 14.50, 20, 1, 2);
 
 CREATE TABLE `clients` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
@@ -40,7 +50,7 @@ CREATE TABLE `orders` (
   `client_id` int unsigned NOT NULL,
   `total_price` decimal(18,2) NOT NULL,
   `invoice` tinyint(1) NOT NULL DEFAULT '0',
-  `order_address` text NOT NULL
+  `order_address` text NOT NULL,
   `complete` tinyint(1) NOT NULL DEFAULT '0',
   `created` datetime NOT NULL,
   PRIMARY KEY (`id`),
@@ -78,8 +88,7 @@ CREATE TABLE `custom_pages` (
 
 
 INSERT INTO `custom_pages` (`id`, `title`, `text_1`, `text_2`, `text_3`, `text_4`, `text_5`, `string_1`, `string_2`, `string_3`, `string_4`, `string_5`) VALUES
-(1, 'home', '', '', '', '', '', '', '', '', '', ''),
-(2, 'Contatti', '', '', '', '', '', '', '', '', '', '');
+(5, 'terms-and-conditions', '', '', '', '', '', '', '', '', '', '');
 
 
 CREATE TABLE `roles` (
@@ -110,6 +119,6 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `role_id`, `email`, `password`, `username`, `created`, `modified`) VALUES
 (1, 1, 'giuseppeosenda1@gmail.com', '$2y$10$MNbsAEQpVlbCUNuhHIrh8Onw7M.rjaM7Irvt7EccJ1H0H/GZKfL2.', 'Giuseppe', '2024-03-02 20:55:54', '2024-03-10 18:15:47'),
-(2, 2, 'cliente@gmail.com', '$2y$10$nPM4IaGydg0zaUAhqlmww./Wxj3T.v8SjtOaqP651NJRCFi7xGZ0S', 'cliente', '2024-03-15 12:11:34', '2024-03-15 12:11:34');
-
+(2, 2, 'cliente@gmail.com', '$2y$10$nPM4IaGydg0zaUAhqlmww./Wxj3T.v8SjtOaqP651NJRCFi7xGZ0S', 'cliente', '2024-03-15 12:11:34', '2024-03-15 12:11:34'),
+(3, 1, 'user@aquest.it', '$2y$10$pgMTVrhJ94tz0oQKMq4kU.058gjE0oBUEyABOo8xRHwvXklro6KQ6', 'AQuest', '2024-04-10 13:56:15', '2024-04-10 13:56:15');
 
