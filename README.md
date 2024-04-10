@@ -1,2 +1,2 @@
-# TinyCommerce - AQuest Test
+# TinyCommerce
 
