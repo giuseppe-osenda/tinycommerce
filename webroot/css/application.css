@@ -250,6 +250,11 @@ label.form-check-label {
     display: none;
 }
 
+a.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
 @media (max-width: 768px) {
     .page-container {
         width: 90%;

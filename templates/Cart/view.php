@@ -102,7 +102,7 @@ $at_least_one_product = false; // flag per verificare se almeno un prodotto ha i
     <?php if (empty($cartItems)) : ?>
       <a data-cart-proceed class="button btn right positive" href="<?= $this->Url->build('/'); ?>">Procedi</a> <!-- qui c'era un errore html -->
     <?php else : ?>
-      <a class="button btn right positive" href="<?= $this->Url->build('/user-info'); ?>">Procedi</a> <!-- qui c'era un errore html -->
+      <a data-cart-proceed class="button btn right positive" href="<?= $this->Url->build('/user-info'); ?>">Procedi</a> <!-- qui c'era un errore html -->
     <?php endif; ?>
   </section>
 </section>

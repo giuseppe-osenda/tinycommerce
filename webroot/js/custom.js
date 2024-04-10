@@ -30,7 +30,9 @@ $(".remove-from-cart").click(function (e) {
             }
 
             if(response.emptyCart){
-                $('[data-cart-proceed]').prop('disabled', true);
+                console.log('empty');   
+                $('[data-cart-proceed]').attr('href', 'javascript:void(0);');
+                $('[data-cart-proceed]').addClass('disabled');
             }
         }
     });
