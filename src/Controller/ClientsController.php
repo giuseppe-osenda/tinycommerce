@@ -40,8 +40,8 @@ class ClientsController extends AppController
 
             $returning_client = $this->Clients->find()->where(['email' => $email])->first();
 
-            if (empty($returning_client)) {
-                $client = $this->Clients->newEntity($data);
+            if (empty($returning_client)) { // Se non esiste un cliente con la stessa email
+                $client = $this->Clients->newEntity($data); // Crea un nuovo cliente
 
                 if ($this->Clients->save($client)) {
                     $resp['success'] = true;

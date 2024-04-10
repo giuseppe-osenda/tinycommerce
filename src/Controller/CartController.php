@@ -113,7 +113,6 @@ class CartController extends AppController
                     if (is_array($cartItem)) { //Se l'elemento è un array allora è un prodotto
                         $product_prices[$product_id] = $cartItem['original_price']; //Aggiorno i prezzi originali dei prodotti
                         $session->write('original_prices', $product_prices); //Scrivo i prezzi originali dei prodotti aggiornati in sessione
-                        $original_prices = $session->read('original_prices'); // leggo i prezzi originali dei prodotti aggiornati
 
                         if (isset($coupon_id)) { //Se è stato usato un coupon
                             if ($cartItem['coupon_id'] == $coupon_id) { //Controllo se almeno un prodotto ha il coupon applicato
@@ -126,6 +125,7 @@ class CartController extends AppController
                 $original_total = $session->read('original_total');
                 $resp = ['success' => true, 'cartTotal' =>  $cart['total_price'], 'atLeastOneProduct' => $at_least_one_product, 'originalTotal' => $original_total]; //Preparo la risposta con il totale del carrello aggiornato, il flag che indica se almeno un prodotto ha il coupon applicato e il totale originale del carrello
 
+                //Se il carrello è vuoto lo passo alla vista per disabilitare il bottone procedi
                 unset($cart['total_price']);
                 unset($cart['has_used_coupon']);
                 $empty_cart = empty($cart);

@@ -10,7 +10,7 @@ use Cake\Datasource\FactoryLocator;
 class PaymentsController extends AppController
 {
 
-    public function req()
+    public function req() //funzione per richiedere il pagamento
     {
         if (!empty($this->request->getData())) {
             $data = $this->request->getData();
@@ -68,7 +68,7 @@ class PaymentsController extends AppController
             $resp['message'] = "Errore nel salvataggio dei dati dell'ordine";
         }
 
-        if ($resp['success']) {
+        if ($resp['success']) { //se l'ordine è stato salvato correttamente svuoto il carrello
             $this->request->getSession()->delete('Cart');
             $this->request->getSession()->delete('Cart.total_price');
             $this->request->getSession()->delete('Cart.has_used_coupon');
