@@ -1,5 +1,3 @@
-    <?php //debug($cart); 
-    ?>
     <div class="page-container client-form-container">
         <h3 class="big-title bold">Dati utente</h3>
         <?= $this->Form->create(null, ['url' => ['controller' => 'Clients', 'action' => 'req'], 'class' => 'client-form']) ?>

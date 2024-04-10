@@ -31,7 +31,7 @@ $has_used_coupon = $this->request->getSession()->read('Cart.has_used_coupon');
                 <?php else : ?>
                     <p class="paragraph">Non desidero iscrivermi alla newsletter</p>
                 <?php endif; ?>
-                <?php if ($client->invoice) : ?>
+                <?php if ($invoice) : ?>
                     <p class="paragraph">Richiedo fattura</p>
                 <?php else : ?>
                     <p class="paragraph">Non richiedo fattura</p>

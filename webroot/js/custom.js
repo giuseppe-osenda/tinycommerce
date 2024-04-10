@@ -16,7 +16,22 @@ $(".remove-from-cart").click(function (e) {
     $.get(url, function (response) {
         if (response.success) {
             $(trigger).parent().parent().remove();
-            $('[data-cart-total]').text(parseFloat(response.cartTotal).toFixed(2));
+            //$('[data-cart-total]').text(parseFloat(response.cartTotal).toFixed(2));
+
+            if (response.atLeastOneProduct) {
+                $('[data-cart-total] > [data-original-total]').text((parseFloat(response.cartTotal).toFixed(2) + '€'));
+                $('[data-cart-total] > [data-del-total]').text((parseFloat(response.originalTotal).toFixed(2) + '€'));
+                $('[data-cart-total] > [data-session-del-total]').text((parseFloat(response.originalTotal).toFixed(2) + '€'));
+            } else {
+                $('[data-cart-total] > [data-original-total]').text((parseFloat(response.cartTotal).toFixed(2) + '€'));
+                $('[data-cart-total] > [data-del-total]').text('');
+                $('[data-cart-total] > [data-session-del-total]').text('');
+                $('[data-coupon-code]').text('');
+            }
+
+            if(response.emptyCart){
+                $('[data-cart-proceed]').prop('disabled', true);
+            }
         }
     });
 });
@@ -33,10 +48,11 @@ $(document).ready(function () {
             data: { id: productId, quantity: quantity },
             success: function (response) {
                 if (response.success) {
+                    console.log($('[data-cart-total] > [data-original-total]'));
                     $('[data-row-total="' + productId + '"]').text((parseFloat(response.rowTotal).toFixed(2)) + '€');
                     $('[data-cart-total] > [data-original-total]').text((parseFloat(response.cartTotal).toFixed(2) + '€'));
                     $('[data-cart-total] > [data-del-total]').text((parseFloat(response.cartTotal).toFixed(2) + '€'));
-                    
+
                 }
             }
         });
@@ -97,17 +113,19 @@ const checkStripe = $("[data-stripe-payment]");
 const paymentError = $("[data-payment-error]");
 
 payButton.on('click', function (e) {
-    if (!(checkPrivacy.prop('checked'))) {
+
+
+    if (checkPrivacy.prop('checked') == false) {
         e.preventDefault();
         privacyError.text("Accetta la privacy");
     } else {
         privacyError.text("");
     }
 
-    if (!(checkStripe.prop('checked'))) {
+    if (checkStripe.prop('checked') == false) {
         e.preventDefault();
         paymentError.text("Seleziona almeno un metodo di pagamento");
     } else {
-        privacyError.text("");
+        paymentError.text("");
     }
 });
