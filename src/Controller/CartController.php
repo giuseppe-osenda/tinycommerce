@@ -107,12 +107,14 @@ class CartController extends AppController
 
                 $at_least_one_product = false; //Flag per verificare se almeno un prodotto ha il coupon applicato
                 $cart = $session->read('Cart'); // leggo il carrello dalla sessione aggiornato
-                $session->write('original_total', array_sum(array_column($cart, 'original_price'))); //Aggiorno il totale originale del carrello
+                $original_total = 0; //Inizializzo il totale originale a 0
 
                 foreach ($cart as $product_id => $cartItem) {
                     if (is_array($cartItem)) { //Se l'elemento è un array allora è un prodotto
-                        $product_prices[$product_id] = $cartItem['original_price']; //Aggiorno i prezzi originali dei prodotti
+                        $product_prices[$product_id] = $cartItem['original_price']; //Aggiorno i prezzi originali con i prodotti rimanenti
                         $session->write('original_prices', $product_prices); //Scrivo i prezzi originali dei prodotti aggiornati in sessione
+                        
+                        $original_total += $cartItem['original_price'] * $cartItem['quantity']; //Calcolo il totale originale del carrello senza sconti
 
                         if (isset($coupon_id)) { //Se è stato usato un coupon
                             if ($cartItem['coupon_id'] == $coupon_id) { //Controllo se almeno un prodotto ha il coupon applicato
@@ -122,6 +124,7 @@ class CartController extends AppController
                     }
                 }
 
+                $session->write('original_total', $original_total); //Salvo il totale senza sconti del carrello
                 $original_total = $session->read('original_total');
                 $resp = ['success' => true, 'cartTotal' =>  $cart['total_price'], 'atLeastOneProduct' => $at_least_one_product, 'originalTotal' => $original_total]; //Preparo la risposta con il totale del carrello aggiornato, il flag che indica se almeno un prodotto ha il coupon applicato e il totale originale del carrello
 
