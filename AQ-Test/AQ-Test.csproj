@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>AQ_Test</RootNamespace>
+    <UserSecretsId>cad82f94-443f-447e-9880-78e1bc30ff2c</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
