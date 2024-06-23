@@ -22,7 +22,7 @@ class PaymentsController extends AppController
 
             if ($payment_type == 'stripe') {
 
-                $stripe = new \Stripe\StripeClient('sk_test_51HvjfMECzoeV8ioG6O7jvGvhr1eCYC2kZb0qyYwVOlIgrnv0IZjVpQeqBiqwwKIHSZBiHJFGT7xkvBwtdDhn485100rdCS0p5N');
+                $stripe = new \Stripe\StripeClient('set_key_in_a_secret_file_to_retrieve');
 
                 $paymentIntent = $stripe->paymentIntents->create([
                     'amount' => round($cart['total_price'] * 100),
