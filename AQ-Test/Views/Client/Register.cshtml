@@ -1,0 +1,82 @@
+﻿@model Client
+@{
+    ViewData["Title"] = "Register";
+
+}
+
+<form asp-action="Register">
+    <div>
+        <label asp-for="Email" class="form-label mt-4">Email address</label>
+        <input asp-for="Email" type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email" data-dashlane-rid="170180d428ccfc16" data-kwimpalastatus="alive" data-kwimpalaid="1718716420396-1" data-form-type="email">
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Password" class="form-label mt-4">Password</label>
+        <input asp-for="Password" type="password" class="form-control" id="InputPassword" placeholder="Password" autocomplete="off" data-dashlane-rid="4b531d03ab69a9d9" data-kwimpalastatus="alive" data-kwimpalaid="1718716420396-2" data-form-type="password">
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Name" class="form-label mt-4">Name</label>
+        <input asp-for="Name" type="text" class="form-control" id="InputName" placeholder="Enter name" data-dashlane-rid="170180d428ccfc16" data-kwimpalastatus="alive" data-kwimpalaid="1718716420396-1">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Lastname" class="form-label mt-4">Lastname</label>
+        <input asp-for="Lastname" type="text" class="form-control" id="InputLastName" placeholder="Enter last name" data-dashlane-rid="170180d428ccfc16" data-kwimpalastatus="alive" data-kwimpalaid="1718716420396-1">
+        <span asp-validation-for="Lastname" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Address" class="form-label mt-4">Address</label>
+        <input asp-for="Address" type="text" class="form-control" id="InputAddress" placeholder="Enter address" data-dashlane-rid="170180d428ccfc16" data-kwimpalastatus="alive" data-kwimpalaid="1718716420396-1">
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+
+    <div class="form-check">
+        <input asp-for="Invoice" name="Invoice" class="form-check-input" type="checkbox" value="true" id="flexCheckChecked" checked="" data-dashlane-rid="a0768bdd64b7e5a1" data-form-type="other">
+        <label class="form-check-label" asp-for="Invoice">
+            Invoice
+        </label>
+        <span asp-validation-for="Invoice" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Country" class="form-label mt-4">Country</label>
+        <select asp-for="Country" asp-items="@ViewBag.Countries" class="form-control" id="InputCountry">
+            <option value="">Please select a country</option>
+        </select>
+        <span asp-validation-for="Country" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="VatNumber" class="form-label mt-4">VatNumber</label>
+        <input asp-for="VatNumber" type="text" class="form-control" id="InputVatNumber" placeholder="Enter vat number" data-dashlane-rid="170180d428ccfc16" data-kwimpalastatus="alive" data-kwimpalaid="1718716420396-1">
+        <span asp-validation-for="VatNumber" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="TaxCode" class="form-label mt-4">TaxCode</label>
+        <input asp-for="TaxCode" type="text" class="form-control" id="InputTaxCode" placeholder="Enter vat number" data-dashlane-rid="170180d428ccfc16" data-kwimpalastatus="alive" data-kwimpalaid="1718716420396-1">
+        <span asp-validation-for="TaxCode" class="text-danger"></span>
+    </div>
+    <div class="form-check">
+        <input asp-for="Newsletter" name="Newsletter" class="form-check-input" type="checkbox" value="true" id="flexCheckChecked" checked="" data-dashlane-rid="a0768bdd64b7e5a1" data-form-type="other">
+        <label class="form-check-label" asp-for="Newsletter">
+            Newsletter
+        </label>
+        <span asp-validation-for="Newsletter" class="text-danger"></span>
+    </div>
+
+    <div class="form-check">
+        <input asp-for="Privacy" name="Privacy" class="form-check-input" type="checkbox" value="true" id="flexCheckChecked" checked="" data-dashlane-rid="a0768bdd64b7e5a1" data-form-type="other">
+        <label class="form-check-label" asp-for="Privacy">
+            Privacy
+        </label>
+        <span asp-validation-for="Privacy" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Register</button>
+
+</form>
+
+<a asp-action="Index" asp-controller="Cart" class="btn btn-secondary">Back</a>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

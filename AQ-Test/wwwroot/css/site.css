@@ -1,0 +1,296 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.page-container {
+    width: clamp(500px, 90%, 1440px);
+    margin: 100px auto 0;
+}
+
+
+table {
+    border-collapse: collapse;
+}
+
+    table tr td,
+    table thead th,
+    table tfoot td {
+        border: 1px solid #bbb;
+        padding: 10px !important;
+        min-width: 100px;
+    }
+
+
+section.cart-items {
+    overflow-x: auto;
+}
+
+.tac {
+    text-align: center;
+}
+
+    .tac svg {
+        width: 20px;
+        height: 20px;
+    }
+
+.tar {
+    text-align: right;
+}
+
+td.cart-action span {
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+td.cart-action p {
+    margin: 0;
+}
+
+section {
+    padding: 30px 0;
+    border-top: 1px solid #dedcdc;
+}
+
+input,
+select {
+    padding: 5px 10px;
+}
+
+button {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.field {
+    margin-bottom: 20px;
+}
+
+form {
+    width: 100%;
+}
+
+.quantity-form {
+    display: flex;
+    max-width: 30%;
+    margin: 0 auto;
+    gap: 25px;
+}
+
+.cart-coupon {
+    margin-left: auto;
+}
+
+.coupon-text-field {
+    max-width: 40%;
+}
+
+.btn,
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 max(10px, 20vw * var(--px2vw));
+    height: clamp(40px, 50vw * var(--px2vw), 48px);
+    line-height: clamp(40px, 50vw * var(--px2vw), 48px);
+    margin: 0;
+    border: none;
+    transition: background-color 0.1s ease-in-out;
+    width: fit-content;
+    text-transform: none !important;
+    font-size: clamp(12px, 15vw * var(--px2vw), 15px);
+}
+
+.button-secondary {
+    text-decoration: underline;
+}
+
+.btn.left {
+    margin-right: auto;
+}
+
+.btn.right {
+    margin-left: auto;
+}
+
+.btn.positive:hover {
+    background-color: var(--green);
+    border: none;
+}
+
+.alert {
+    color: var(--grey);
+}
+
+button:focus {
+    background-color: var(--red);
+}
+
+section.user-data {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.client-form-container label {
+    font-size: clamp(12px, 15vw * var(--px2vw), 20px);
+    font-weight: 600;
+}
+
+.user-data-fields {
+    justify-self: flex-start;
+    width: 100%;
+}
+
+.user-data-paragraph {
+    padding-right: 10%;
+}
+
+.user-data-title p:first-child {
+    margin-bottom: 12px;
+}
+
+.user-data-preferences {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 7px;
+    margin-top: 10px;
+}
+
+.client-alert {
+    grid-column-start: 2;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    margin: 0;
+}
+
+label.form-check-label {
+    margin: 0;
+}
+
+.form-actions {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+    .form-actions.right {
+        justify-content: flex-end;
+    }
+
+.user-info-resume {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 10px;
+}
+
+    .user-info-resume p {
+        margin: 0;
+        position: relative;
+    }
+
+        .user-info-resume p:before {
+            content: "•";
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+.payment {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.form-check {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.payment-type-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.field-checkbox {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 0;
+}
+
+.privacy-checkbox-container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+#payment-form {
+    width: 30%;
+    margin: 0 auto;
+    max-width: 576px;
+}
+
+[class*="error"] {
+    color: #ff0f0f;
+}
+
+[data-del-price=""] {
+    display: none;
+}
+
+[data-del-total=""] {
+    display: none;
+}
+
+a.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+    .page-container {
+        width: 90%;
+    }
+
+    section.user-data {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}

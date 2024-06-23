@@ -1,0 +1,126 @@
+﻿@model Cart
+@using System.Security.Claims;
+
+@{
+    ViewData["Title"] = "Carrello";
+    string noCartProducts = ViewBag.NoCartProducts;
+    decimal cartTotal = Model.Total;
+    bool hasUsedCoupon = Model.CartProducts.Any(cp => cp.CouponCode.Length > 0);
+    string? couponCode = Model.CartProducts.FirstOrDefault(cp => cp.CouponCode.Length > 0)?.CouponCode;
+}
+<section class="page-container">
+    <h3 class="big-title bold">Carrello</h3>
+    <section class="cart-items">
+        <table class="cart-items">
+            <thead>
+                <tr>
+                    <th class="tiny-title"></th>
+                    <th class="tiny-title">Prodotto</th>
+                    <th class="tiny-title">Prezzo</th>
+                    <th class="tiny-title">Quantità</th>
+                    <th class="tiny-title">Totale</th>
+                    <th id="notificationsTableHeader" style="display:none"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var cartProduct in Model.CartProducts.OrderBy(cp => cp.Product.Name))
+                    {
+                        <tr>
+                            <td class="cart-action tac">
+                                <a asp-controller="Cart" asp-action="DeleteFromCart" class="remove-from-cart" asp-route-cartProductId="@cartProduct.Id">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                                        <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                                    </svg>
+                                </a>
+                            </td>
+                            <td class="cart-item">@cartProduct.Product.Name</td>
+                            @if (cartProduct.CouponCode.Length > 0)
+                            {
+                                <td class="cart-price tar"><s>@cartProduct.Price</s> @cartProduct.DiscountedPrice</td>
+                            }
+                            else
+                            {
+                                <td class="cart-price tar">@cartProduct.Price</td>
+                            }
+
+                            <td class="cart-action cart-quantity tac">
+                                <div class="input-group quantity-selector quantity-selector-sm">
+                                    <input type="number" id="cartQuantitySelector" class="form-control cartQuantitySelector" aria-live="polite" data-bs-step="counter" name="quantity" title="quantity" value="@cartProduct.ProductQty" cart-product-id="@cartProduct.Id" min="1" max="@cartProduct.Product.StockQty" step="1" data-bs-round="0" aria-label="Quantity selector">
+                                    <button type="button" class="btn btn-icon btn-secondary btn-sm" aria-describedby="cartQuantitySelector" data-bs-step="down">
+                                        <span class="visually-hidden">Step down</span>
+                                    </button>
+                                    <button type="button" class="btn btn-icon btn-secondary btn-sm" aria-describedby="cartQuantitySelector" data-bs-step="up">
+                                        <span class="visually-hidden">Step up</span>
+                                    </button>
+                                </div>
+                            </td>
+
+                            <td class="row-total tar">@cartProduct.Total</td>
+
+                            <td id="stockQtyError" style="display:none">
+                                <span class="text-danger">Maximum stock quantity exceeded</span>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4">&nbsp;</td>
+                    <td class="cart-total tar">@cartTotal</td>
+                </tr>
+                @if(ViewBag.ProductQtyError != null)
+                {
+                    <tr>
+                        <td colspan="5">
+                            <span class="text-danger">@ViewBag.ProductQtyError</span>
+                        </td>
+                    </tr>
+                }
+            </tfoot>
+        </table>
+
+        
+
+    </section>
+
+
+
+    <div class="cart-coupon tar">
+        <label class="form-label mt-4" for="inputValid">Inserisci codice coupon:</label>
+        @{
+            if (hasUsedCoupon)
+            {
+                <input type="text" name="couponCode" placeholder="Digita qui" cart-id="@Model.Id" class="form-control" id="couponCodeInput" data-dashlane-rid="6858169eecd7b3b2" data-form-type="other" disabled="disabled">
+                <span>Coupon utilizzato: @couponCode</span>
+                <div class="coupon-valid-feedback" style="display:none">Coupon applicato con successo!</div>
+                <div class="coupon-invalid-feedback" style="display:none">Coupon non valido</div>
+            }
+            else
+            {
+                <input type="text" name="couponCode" placeholder="Digita qui" cart-id="@Model.Id" class="form-control" id="couponCodeInput" data-dashlane-rid="6858169eecd7b3b2" data-form-type="other">
+                <div class="coupon-valid-feedback" style="display:none">Coupon applicato con successo!</div>
+                <div class="coupon-invalid-feedback" style="display:none">Coupon non valido</div>
+            }
+        }
+
+
+        <a class="button submitCouponButton">Applica coupon</a>
+
+    </div>
+
+    @{
+        if(Context?.User?.Identity?.IsAuthenticated ?? false)
+        {
+            string? clientId = Context.User.FindFirst("ClientId")?.Value;
+            <a asp-action="Checkout" asp-controller="Order" asp-route-cartId="@Model.Id">Procedi</a>
+        }
+        else
+        {
+            <a asp-action="Register" asp-controller="Client" >Procedi</a>
+        }
+    }
+ 
+</section>
+

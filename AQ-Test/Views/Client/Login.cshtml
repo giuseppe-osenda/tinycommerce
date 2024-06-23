@@ -1,0 +1,21 @@
+﻿@model Client
+@{
+    ViewData["Title"] = "Login";
+}
+
+<form asp-action="Login">
+    <div>
+        <label asp-for="Email" class="form-label mt-4">Email address</label>
+        <input asp-for="Email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" data-dashlane-rid="170180d428ccfc16" data-kwimpalastatus="alive" data-kwimpalaid="1718716420396-1" data-form-type="email">
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Password" class="form-label mt-4">Password</label>
+        <input asp-for="Password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" autocomplete="off" data-dashlane-rid="4b531d03ab69a9d9" data-kwimpalastatus="alive" data-kwimpalaid="1718716420396-2" data-form-type="password">
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+    <button asp-action="Index" asp-controller="Cart" class="btn btn-secondary">Back</button>
+
+</form>

@@ -1,0 +1,110 @@
+﻿@model CheckoutViewModel
+<div class="page-container">
+    <h3>Checkout</h3>
+    <section class="user-info">
+        <h4>Riepilogo dati personali</h4>
+        <div>
+
+            <p>@Model.client.Name</p>
+            <p>@Model.client.Email</p>
+            <p>@Model.client.Country</p>
+            @if (Model.client.Newsletter) {
+                <p> Desidero iscrivermi alla newsletter</p>
+            }
+            else
+            {
+                <p> Non desidero iscrivermi alla newsletter</p>
+            }
+            @if (Model.client.Invoice) {
+                <p> Richiedo fattura</p>
+            }
+            else
+            {
+                <p> Non richiedo fattura</p>
+            }
+
+        </div>
+    </section>
+
+    <section class="cart-items">
+        <h3 class="big-title bold">Riepilogo carrello</h3>
+        <section class="cart-items">
+            <table class="cart-items">
+                <thead>
+                    <tr>
+                       
+                        <th class="tiny-title">Prodotto</th>
+                        <th class="tiny-title">Prezzo</th>
+                        <th class="tiny-title">Quantità</th>
+                        <th class="tiny-title">Totale</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var cartProduct in Model.cart.CartProducts.OrderBy(cp => cp.Product.Name))
+                        {
+                            <tr>
+                                <td class="cart-item">@cartProduct.Product.Name</td>
+                                @if (cartProduct.CouponCode.Length > 0)
+                                {
+                                    <td class="cart-price tar"><s>@cartProduct.Price</s> @cartProduct.DiscountedPrice</td>
+                                }
+                                else
+                                {
+                                    <td class="cart-price tar">@cartProduct.Price</td>
+                                }
+
+                                <td class="cart-action cart-quantity tac">
+                                    <div class="input-group quantity-selector quantity-selector-sm">
+                                        <input type="number" id="cartQuantitySelector" class="form-control cartQuantitySelector" disabled="" aria-live="polite" data-bs-step="counter" name="quantity" title="quantity" value="@cartProduct.ProductQty" cart-product-id="@cartProduct.Id" min="1" max="@cartProduct.Product.StockQty" step="1" data-bs-round="0" aria-label="Quantity selector">
+                                        <button type="button" class="btn btn-icon btn-secondary btn-sm" aria-describedby="cartQuantitySelector" data-bs-step="down">
+                                            <span class="visually-hidden">Step down</span>
+                                        </button>
+                                        <button type="button" class="btn btn-icon btn-secondary btn-sm" aria-describedby="cartQuantitySelector" data-bs-step="up">
+                                            <span class="visually-hidden">Step up</span>
+                                        </button>
+                                    </div>
+                                </td>
+
+                                <td class="row-total tar">@cartProduct.Total</td>
+
+                            </tr>
+                        }
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3">&nbsp;</td>
+                        <td class="cart-total tar">@Model.cart.Total</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+
+
+        </section>
+
+    <form asp-controller="Order" asp-action="Checkout" method="post">
+        <input type="hidden" name="cartId"  value="@Model.cart.Id"/>
+        <section class="payment">
+            <div class="field">
+                    <input type="radio" name="paymentType" value="paypal" disabled="disabled">
+                <label>Paga con Paypal</label><br>
+                <input type="radio" name="paymentType" value="stripe" >
+                <label>Paga con Stripe</label>
+            </div>
+
+            <div class="field field-checkbox">
+                <label>Ho letto e accetto le condizioni generali di vendita</label>
+                <input type="checkbox" name="termsAndConditions">
+            </div>
+
+        </section>
+
+        <section>
+            <a class="button" asp-action="Index" asp-controller="Cart">Indietro</a>
+            <button type="submit" >Procedi</button>
+        </section>
+    </form>
+</div>
